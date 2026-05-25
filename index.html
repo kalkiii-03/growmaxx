@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Grow Maxx Spices</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      scroll-behavior:smooth;
+    }
+
+    body{
+      font-family:'Poppins',sans-serif;
+      background:#fffdf8;
+      color:#222;
+      overflow-x:hidden;
+    }
+
+    ::selection{
+      background:#d97706;
+      color:white;
+    }
+
+    .navbar{
+      position:fixed;
+      top:0;
+      width:100%;
+      z-index:1000;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      padding:18px 8%;
+      background:rgba(0,0,0,0.65);
+      backdrop-filter:blur(12px);
+    }
+
+    .logo{
+      font-size:2rem;
+      font-weight:800;
+      color:#fff;
+      letter-spacing:1px;
+    }
+
+    .logo span{
+      color:#f59e0b;
+    }
+
+    .nav-links{
+      display:flex;
+      gap:25px;
+      list-style:none;
+    }
+
+    .nav-links a{
+      color:white;
+      text-decoration:none;
+      font-weight:500;
+      transition:0.3s;
+    }
+
+    .nav-links a:hover{
+      color:#f59e0b;
+    }
+
+    .menu-btn{
+      display:none;
+      width:48px;
+      height:48px;
+      border-radius:12px;
+      background:rgba(255,255,255,0.1);
+      justify-content:center;
+      align-items:center;
+      cursor:pointer;
+      transition:0.3s ease;
+      position:relative;
+      z-index:1001;
+    }
+
+    .menu-btn i{
+      color:white;
+      font-size:1.5rem;
+      transition:0.3s ease;
+    }
+
+    .menu-btn.active i{
+      transform:rotate(90deg);
+      color:#f59e0b;
+    }
+
+    .menu-btn:hover{
+      background:rgba(255,255,255,0.2);
+    }
+
+    section{
+      padding:110px 8% 80px;
+    }
+
+    .hero{
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      background:
+      linear-gradient(rgba(0,0,0,0.65),rgba(0,0,0,0.7)),
+      url('https://images.unsplash.com/photo-1596040033229-a9821ebd058d?q=80&w=1400&auto=format&fit=crop') center/cover no-repeat;
+      color:white;
+    }
+
+    .hero-content{
+      max-width:700px;
+    }
+
+    .hero h1{
+      font-size:4rem;
+      line-height:1.1;
+      margin-bottom:20px;
+    }
+
+    .hero p{
+      font-size:1.1rem;
+      line-height:1.8;
+      margin-bottom:35px;
+      color:#eee;
+    }
+
+    .btn{
+      display:inline-block;
+      padding:14px 32px;
+      background:#f59e0b;
+      color:white;
+      border-radius:50px;
+      text-decoration:none;
+      font-weight:600;
+      transition:0.3s;
+      border:none;
+      cursor:pointer;
+    }
+
+    .btn:hover{
+      background:#d97706;
+      transform:translateY(-3px);
+    }
+
+    .section-title{
+      text-align:center;
+      margin-bottom:60px;
+    }
+
+    .section-title h2{
+      font-size:2.7rem;
+      color:#7c2d12;
+      margin-bottom:15px;
+    }
+
+    .section-title p{
+      color:#555;
+      max-width:700px;
+      margin:auto;
+      line-height:1.7;
+    }
+
+    .about-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+      gap:40px;
+      align-items:center;
+    }
+
+    .about-grid img{
+      width:100%;
+      border-radius:25px;
+      box-shadow:0 10px 35px rgba(0,0,0,0.15);
+    }
+
+    .about-text h3{
+      font-size:2rem;
+      margin-bottom:20px;
+      color:#7c2d12;
+    }
+
+    .about-text p{
+      line-height:1.9;
+      color:#444;
+      margin-bottom:18px;
+    }
+
+    .spice-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+      gap:30px;
+    }
+
+    .spice-card{
+      background:white;
+      border-radius:25px;
+      overflow:hidden;
+      box-shadow:0 10px 30px rgba(0,0,0,0.08);
+      transition:0.4s;
+    }
+
+    .spice-card:hover{
+      transform:translateY(-10px);
+    }
+
+    .spice-card img{
+      width:100%;
+      height:240px;
+      object-fit:cover;
+    }
+
+    .spice-content{
+      padding:25px;
+    }
+
+    .spice-content h3{
+      color:#7c2d12;
+      margin-bottom:12px;
+    }
+
+    .spice-content p{
+      color:#555;
+      line-height:1.7;
+      font-size:0.95rem;
+    }
+
+    .certificates{
+      background:#fff7ed;
+    }
+
+    .certificate-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+      gap:25px;
+    }
+
+    .certificate-card{
+      background:white;
+      padding:35px 25px;
+      border-radius:20px;
+      text-align:center;
+      box-shadow:0 8px 25px rgba(0,0,0,0.08);
+    }
+
+    .certificate-card i{
+      font-size:3rem;
+      color:#f59e0b;
+      margin-bottom:20px;
+    }
+
+    .certificate-card h3{
+      margin-bottom:12px;
+      color:#7c2d12;
+    }
+
+    .gallery-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+      gap:20px;
+    }
+
+    .gallery-grid img{
+      width:100%;
+      height:260px;
+      object-fit:cover;
+      border-radius:18px;
+      transition:0.4s;
+    }
+
+    .gallery-grid img:hover{
+      transform:scale(1.04);
+    }
+
+    .stats{
+      background:linear-gradient(to right,#7c2d12,#ea580c);
+      color:white;
+    }
+
+    .stats-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+      gap:30px;
+      text-align:center;
+    }
+
+    .stat-box h2{
+      font-size:3rem;
+      margin-bottom:10px;
+    }
+
+    .contact-wrapper{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+      gap:40px;
+    }
+
+    .contact-info{
+      background:#fff7ed;
+      padding:35px;
+      border-radius:25px;
+    }
+
+    .contact-info h3{
+      margin-bottom:25px;
+      color:#7c2d12;
+      font-size:1.8rem;
+    }
+
+    .contact-info p{
+      margin-bottom:18px;
+      color:#444;
+      line-height:1.8;
+    }
+
+    .contact-form{
+      background:white;
+      padding:35px;
+      border-radius:25px;
+      box-shadow:0 10px 30px rgba(0,0,0,0.08);
+    }
+
+    .contact-form input,
+    .contact-form textarea{
+      width:100%;
+      padding:15px;
+      margin-bottom:18px;
+      border:1px solid #ddd;
+      border-radius:12px;
+      font-family:inherit;
+    }
+
+    .contact-form textarea{
+      height:150px;
+      resize:none;
+    }
+
+    footer{
+      background:#1f1f1f;
+      color:white;
+      padding:70px 8% 30px;
+    }
+
+    .footer-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+      gap:40px;
+      margin-bottom:40px;
+    }
+
+    .footer-box h3{
+      margin-bottom:20px;
+      color:#f59e0b;
+    }
+
+    .footer-box p,
+    .footer-box a{
+      color:#ddd;
+      text-decoration:none;
+      line-height:2;
+      display:block;
+    }
+
+    .footer-bottom{
+      border-top:1px solid rgba(255,255,255,0.1);
+      padding-top:20px;
+      text-align:center;
+      color:#aaa;
+    }
+
+    .whatsapp{
+      position:fixed;
+      right:20px;
+      bottom:20px;
+      width:65px;
+      height:65px;
+      border-radius:50%;
+      background:#25D366;
+      color:white;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      font-size:2rem;
+      text-decoration:none;
+      z-index:1000;
+      box-shadow:0 10px 20px rgba(0,0,0,0.25);
+      animation:float 2s infinite;
+    }
+
+    @keyframes float{
+      0%{transform:translateY(0);}
+      50%{transform:translateY(-8px);}
+      100%{transform:translateY(0);}
+    }
+
+    @media(max-width:900px){
+      .navbar{
+        padding:16px 6%;
+      }
+
+      .logo{
+        font-size:1.7rem;
+      }
+
+      .hero{
+        text-align:center;
+        justify-content:center;
+        padding-top:120px;
+      }
+
+      .hero-content{
+        max-width:100%;
+      }
+
+      .hero h1{
+        font-size:2.8rem;
+        line-height:1.2;
+      }
+
+      .hero p{
+        font-size:1rem;
+        line-height:1.8;
+      }
+
+      .nav-links{
+        position:fixed;
+        top:0;
+        right:-100%;
+        width:100%;
+        height:100vh;
+        background:rgba(0,0,0,0.96);
+        backdrop-filter:blur(10px);
+        flex-direction:column;
+        justify-content:center;
+        align-items:center;
+        gap:35px;
+        transition:0.4s ease;
+      }
+
+      .nav-links li{
+        width:100%;
+        text-align:center;
+      }
+
+      .nav-links a{
+        font-size:1.4rem;
+        display:block;
+        width:100%;
+      }
+
+      .nav-links.active{
+        right:0;
+      }
+
+      .menu-btn{
+        display:flex;
+      }
+
+      .about-grid,
+      .contact-wrapper{
+        grid-template-columns:1fr;
+      }
+
+      .stats-grid{
+        grid-template-columns:repeat(2,1fr);
+      }
+    }
+
+    @media(max-width:600px){
+      section{
+        padding:85px 5% 65px;
+      }
+
+      .hero{
+        min-height:92vh;
+      }
+
+      .hero h1{
+        font-size:2.2rem;
+      }
+
+      .hero p{
+        font-size:0.95rem;
+      }
+
+      .section-title{
+        margin-bottom:40px;
+      }
+
+      .section-title h2{
+        font-size:2rem;
+      }
+
+      .about-text h3{
+        font-size:1.7rem;
+      }
+
+      .about-text p,
+      .spice-content p,
+      .contact-info p{
+        font-size:0.95rem;
+      }
+
+      .spice-grid,
+      .certificate-grid,
+      .gallery-grid,
+      .footer-grid{
+        grid-template-columns:1fr;
+      }
+
+      .spice-card img,
+      .gallery-grid img{
+        height:220px;
+      }
+
+      .contact-form,
+      .contact-info,
+      .certificate-card{
+        padding:25px 20px;
+      }
+
+      .stats-grid{
+        grid-template-columns:1fr;
+        gap:20px;
+      }
+
+      .stat-box h2{
+        font-size:2.3rem;
+      }
+
+      .btn{
+        width:100%;
+        text-align:center;
+      }
+
+      .whatsapp{
+        width:58px;
+        height:58px;
+        font-size:1.7rem;
+        right:15px;
+        bottom:15px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="logo">Grow <span>Maxx</span></div>
+
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#products">Spices</a></li>
+      <li><a href="#certificates">Certificates</a></li>
+      <li><a href="#gallery">Gallery</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+
+    <div class="menu-btn" id="menuBtn">
+      <i class="fa-solid fa-bars"></i>
+    </div>
+  </nav>
+
+  <section class="hero" id="home">
+    <div class="hero-content">
+      <h1>Premium Indian Spices For Global Taste</h1>
+      <p>
+        Grow Maxx is a modern spice company delivering authentic Indian flavors with purity, aroma, and international quality standards. From turmeric to cardamom, we bring the essence of India to kitchens worldwide.
+      </p>
+
+      <a href="#products" class="btn">Explore Products</a>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="section-title">
+      <h2>About Grow Maxx</h2>
+      <p>
+        We source high-quality spices directly from trusted Indian farms and process them using advanced hygiene and packaging systems.
+      </p>
+    </div>
+
+    <div class="about-grid">
+      <img src="https://images.unsplash.com/photo-1532336414038-cf19250c5757?q=80&w=1200&auto=format&fit=crop" alt="Spices">
+
+      <div class="about-text">
+        <h3>Tradition + Technology</h3>
+
+        <p>
+          Grow Maxx focuses on delivering clean, aromatic, and export-grade spices. The spice market is brutally competitive. Cheap suppliers win on price but lose on quality. Real companies survive by consistency, packaging, hygiene, certifications, and trust.
+        </p>
+
+        <p>
+          Most spice brands fail because their branding looks outdated and their quality control is weak. A modern website, transparency, and proper certifications instantly separate serious companies from low-level traders.
+        </p>
+
+        <p>
+          We maintain strict quality testing, moisture control, hygienic grinding, and food-safe packaging to ensure every product meets global standards.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section id="products">
+    <div class="section-title">
+      <h2>Our Indian Spices</h2>
+      <p>
+        Authentic flavors sourced from India's finest agricultural regions.
+      </p>
+    </div>
+
+    <div class="spice-grid">
+
+      <div class="spice-card">
+        <img src="https://images.unsplash.com/photo-1615485500704-8e990f9900f7?q=80&w=1200&auto=format&fit=crop" alt="Turmeric">
+        <div class="spice-content">
+          <h3>Turmeric Powder</h3>
+          <p>Rich golden turmeric with strong aroma and high curcumin content. Widely used in Indian cuisine and wellness products.</p>
+        </div>
+      </div>
+
+      <div class="spice-card">
+        <img src="https://images.unsplash.com/photo-1596040033229-a9821ebd058d?q=80&w=1200&auto=format&fit=crop" alt="Red Chilli">
+        <div class="spice-content">
+          <h3>Red Chilli Powder</h3>
+          <p>Premium quality red chilli powder known for vibrant color, sharp flavor, and balanced heat.</p>
+        </div>
+      </div>
+
+      <div class="spice-card">
+        <img src="https://images.unsplash.com/photo-1628773822503-930a7eaecf80?q=80&w=1200&auto=format&fit=crop" alt="Coriander">
+        <div class="spice-content">
+          <h3>Coriander Powder</h3>
+          <p>Freshly ground coriander seeds with earthy flavor perfect for curries and spice blends.</p>
+        </div>
+      </div>
+
+      <div class="spice-card">
+        <img src="https://images.unsplash.com/photo-1515003197210-e0cd71810b5f?q=80&w=1200&auto=format&fit=crop" alt="Black Pepper">
+        <div class="spice-content">
+          <h3>Black Pepper</h3>
+          <p>Strong and aromatic whole black pepper sourced from premium spice-growing regions.</p>
+        </div>
+      </div>
+
+      <div class="spice-card">
+        <img src="https://images.unsplash.com/photo-1609501676725-7186f734b0e5?q=80&w=1200&auto=format&fit=crop" alt="Cardamom">
+        <div class="spice-content">
+          <h3>Green Cardamom</h3>
+          <p>Handpicked premium cardamom with bold aroma used in sweets, tea, and luxury recipes.</p>
+        </div>
+      </div>
+
+      <div class="spice-card">
+        <img src="https://images.unsplash.com/photo-1599909535966-ab2f1a7450db?q=80&w=1200&auto=format&fit=crop" alt="Cumin">
+        <div class="spice-content">
+          <h3>Cumin Seeds</h3>
+          <p>Flavor-rich cumin seeds with strong fragrance ideal for seasoning and spice mixes.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="stats">
+    <div class="stats-grid">
+      <div class="stat-box">
+        <h2>20+</h2>
+        <p>Export Regions</p>
+      </div>
+
+      <div class="stat-box">
+        <h2>100%</h2>
+        <p>Natural Spices</p>
+      </div>
+
+      <div class="stat-box">
+        <h2>50K+</h2>
+        <p>Happy Customers</p>
+      </div>
+
+      <div class="stat-box">
+        <h2>15+</h2>
+        <p>Years Experience</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="certificates" id="certificates">
+    <div class="section-title">
+      <h2>Legal Documents & Certifications</h2>
+      <p>
+        Serious food businesses need trust. These certifications prove product quality, safety, and compliance.
+      </p>
+    </div>
+
+    <div class="certificate-grid">
+
+      <div class="certificate-card">
+        <i class="fa-solid fa-certificate"></i>
+        <h3>FSSAI Certified</h3>
+        <p>Approved under Indian food safety and hygiene standards.</p>
+      </div>
+
+      <div class="certificate-card">
+        <i class="fa-solid fa-award"></i>
+        <h3>ISO 22000</h3>
+        <p>International food safety management certification.</p>
+      </div>
+
+      <div class="certificate-card">
+        <i class="fa-solid fa-leaf"></i>
+        <h3>Organic Certification</h3>
+        <p>Certified sourcing for selected natural spice products.</p>
+      </div>
+
+      <div class="certificate-card">
+        <i class="fa-solid fa-globe"></i>
+        <h3>Export License</h3>
+        <p>Authorized for international spice trading and exports.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <section id="gallery">
+    <div class="section-title">
+      <h2>Gallery</h2>
+      <p>
+        Explore our spice farms, processing units, and premium packaging.
+      </p>
+    </div>
+
+    <div class="gallery-grid">
+      <img src="https://images.unsplash.com/photo-1587735243615-c03f25aaff15?q=80&w=1200&auto=format&fit=crop" alt="gallery">
+      <img src="https://images.unsplash.com/photo-1603048297172-c92544798d5a?q=80&w=1200&auto=format&fit=crop" alt="gallery">
+      <img src="https://images.unsplash.com/photo-1596040033229-a9821ebd058d?q=80&w=1200&auto=format&fit=crop" alt="gallery">
+      <img src="https://images.unsplash.com/photo-1515003197210-e0cd71810b5f?q=80&w=1200&auto=format&fit=crop" alt="gallery">
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="section-title">
+      <h2>Contact Us</h2>
+      <p>
+        Get in touch for wholesale, exports, partnerships, and bulk spice orders.
+      </p>
+    </div>
+
+    <div class="contact-wrapper">
+
+      <div class="contact-info">
+        <h3>Company Information</h3>
+
+        <p><strong>Company:</strong> Grow Maxx Spices Pvt. Ltd.</p>
+        <p><strong>Email:</strong> sales@growmaxxspices.com</p>
+        <p><strong>Phone:</strong> +91 98765 43210</p>
+        <p><strong>Address:</strong> Rajasthan, India</p>
+        <p><strong>Working Hours:</strong> Monday - Saturday | 9:00 AM - 7:00 PM</p>
+      </div>
+
+      <form class="contact-form">
+        <input type="text" placeholder="Your Name" required>
+        <input type="email" placeholder="Your Email" required>
+        <input type="text" placeholder="Subject" required>
+        <textarea placeholder="Your Message"></textarea>
+
+        <button class="btn">Send Message</button>
+      </form>
+
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-grid">
+
+      <div class="footer-box">
+        <h3>Grow Maxx</h3>
+        <p>
+          Delivering premium Indian spices with global quality standards and authentic taste.
+        </p>
+      </div>
+
+      <div class="footer-box">
+        <h3>Quick Links</h3>
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#products">Products</a>
+        <a href="#gallery">Gallery</a>
+      </div>
+
+      <div class="footer-box">
+        <h3>Legal</h3>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms & Conditions</a>
+        <a href="#">Refund Policy</a>
+        <a href="#">Shipping Policy</a>
+      </div>
+
+      <div class="footer-box">
+        <h3>Follow Us</h3>
+        <a href="#">Instagram</a>
+        <a href="#">Facebook</a>
+        <a href="#">LinkedIn</a>
+        <a href="#">YouTube</a>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <p>© 2026 Grow Maxx Spices. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <a href="https://wa.me/919876543210" class="whatsapp" target="_blank">
+    <i class="fa-brands fa-whatsapp"></i>
+  </a>
+
+  <script>
+    const menuBtn = document.getElementById('menuBtn');
+    const navLinks = document.getElementById('navLinks');
+
+    menuBtn.addEventListener('click',()=>{
+      navLinks.classList.toggle('active');
+      menuBtn.classList.toggle('active');
+
+      if(navLinks.classList.contains('active')){
+        menuBtn.innerHTML = '<i class="fa-solid fa-xmark"></i>';
+        document.body.style.overflow = 'hidden';
+      }
+      else{
+        menuBtn.innerHTML = '<i class="fa-solid fa-bars"></i>';
+        document.body.style.overflow = 'auto';
+      }
+    });
+
+    document.querySelectorAll('.nav-links a').forEach(link=>{
+      link.addEventListener('click',()=>{
+        navLinks.classList.remove('active');
+        menuBtn.classList.remove('active');
+        menuBtn.innerHTML = '<i class="fa-solid fa-bars"></i>';
+        document.body.style.overflow = 'auto';
+      });
+    });
+  </script>
+
+</body>
+</html>
